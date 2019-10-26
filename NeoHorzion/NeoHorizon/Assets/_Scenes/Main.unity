@@ -371,6 +371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9645041f18e5844ad20abba2cd3579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movingPiecePrefab: {fileID: 7653207863487169252, guid: 1e75f4e57f5f2f940ae7896686c4521c,
+    type: 3}
+  searchHeight: 0
+  spawnFrequency: 4
 --- !u!1 &900235665
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,7 +422,7 @@ MonoBehaviour:
     type: 3}
   gapsPerRow: 1
   gapSideBuffer: 1
-  autoMoveSeconds: 2
+  autoMoveSeconds: 10
 --- !u!1 &1702153210
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,4 +468,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Width: 10
   Height: 18
-  cellSize: 5
+  CellSize: 5

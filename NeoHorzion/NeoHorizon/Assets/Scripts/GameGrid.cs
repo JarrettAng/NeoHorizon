@@ -7,7 +7,7 @@ public class GameGrid : Singleton<GameGrid>
     [Header("Attributes")]
     public int Width = 10;
     public int Height = 18;
-    [SerializeField] private float cellSize = 5;
+    public float CellSize = 5;
 
 
     private GameGridCell[,] grid;
@@ -19,19 +19,19 @@ public class GameGrid : Singleton<GameGrid>
 
         // Start spawning from top left
         if(Width % 2 == 0) {
-            topLeftPos.x = (cellSize * (float)(-Width / 2)) + (cellSize / 2f);
+            topLeftPos.x = (CellSize * (float)(-Width / 2)) + (CellSize / 2f);
         } else {
-            topLeftPos.x = cellSize * Mathf.Floor(-Width / 2);
+            topLeftPos.x = CellSize * Mathf.Floor(-Width / 2);
         }
         if(Height % 2 == 0) {
-            topLeftPos.y = (cellSize * (float)(-Height / 2)) + (cellSize / 2f);
+            topLeftPos.y = (CellSize * (float)(-Height / 2)) + (CellSize / 2f);
         } else {
-            topLeftPos.y = cellSize * Mathf.Floor(-Height / 2);
+            topLeftPos.y = CellSize * Mathf.Floor(-Height / 2);
         }
 
         for(int y = 0; y < Height; y++) {
             for(int x = 0; x < Width; x++) {
-                Vector2 spawnPos = new Vector2(topLeftPos.x + cellSize * x, topLeftPos.y + cellSize * y);
+                Vector2 spawnPos = new Vector2(topLeftPos.x + CellSize * x, topLeftPos.y + CellSize * y);
 
                 GameGridCell newCell = new GameGridCell(spawnPos, new Vector2Int(x, y));
                 grid[x, y] = newCell;
@@ -78,10 +78,10 @@ public class GameGrid : Singleton<GameGrid>
         }
 
         if(IsOutOfBounds(newPos)) {
-            TilePiece piece = grid[newPos.x, newPos.y].CurrentPiece;
+            TilePiece piece = grid[gridPos.x, gridPos.y].CurrentPiece;
             piece.Destroy();
 
-            grid[newPos.x, newPos.y].Clear();
+            grid[gridPos.x, gridPos.y].Clear();
             moveResult = false;
         } else {
             if(IsTileEmpty(newPos)) {
@@ -101,8 +101,8 @@ public class GameGrid : Singleton<GameGrid>
         bool IsOutOfBounds(Vector2Int pos) {
             bool outOfBounds = false;
 
-            if(pos.x < 0 || pos.x > Width) outOfBounds = true;
-            if(pos.y < 0 || pos.y > Height) outOfBounds = true;
+            if(pos.x < 0 || pos.x > Width - 1) outOfBounds = true;
+            if(pos.y < 0 || pos.y > Height - 1) outOfBounds = true;
 
             return outOfBounds;
         }
