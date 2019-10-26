@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameGridCell
 {
-    public GameGridCell(Vector2 spawnPos) {
+    public GameGridCell(Vector2 spawnPos, Vector2Int gridPos) {
         position = spawnPos;
+        gridPosition = gridPos;
 
         statusSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         statusSphere.transform.position = position;
@@ -15,9 +16,25 @@ public class GameGridCell
 
     public TilePiece CurrentPiece;
 
+    private Vector2Int gridPosition;
     private Vector2 position;
 
     private GameObject statusSphere;
+
+    public void AddPiece(TilePiece newPiece) {
+        CurrentPiece = newPiece;
+
+        CurrentPiece.transform.position = position;
+        CurrentPiece.CurrentGridPos = gridPosition;
+
+        DebugStatus();
+    }
+
+    public void Clear() {
+        CurrentPiece = null;
+
+        DebugStatus();
+    }
 
     public void DebugStatus() {
         if(CurrentPiece == null) {
