@@ -8,6 +8,8 @@ public class TopSpawnerManager : MonoBehaviour
     [SerializeField] private TilePiece piecePrefab = default;
 
     [Header("Attributes")]
+    [SerializeField] private int gapsPerRow = 1;
+    [SerializeField, Tooltip("Use this to prevent gaps spawning at the side")] private int gapSideBuffer = 1;
     [SerializeField] private float autoMoveSeconds = 10f;
 
     private GameGrid gameGrid;
@@ -32,9 +34,27 @@ public class TopSpawnerManager : MonoBehaviour
     }
 
     private void SpawnRow() {
+        List<int> emptySpots = new List<int>();
+
+        int maxIndex = spawnWidth - gapSideBuffer;
+        for(int index = gapSideBuffer; index < maxIndex; index++) {
+            emptySpots.Add(index);
+        }
+
+        for(int count = maxIndex - 1; count > gapsPerRow; count--) {
+            int randomIndex = Random.Range(0, emptySpots.Count);
+            emptySpots.RemoveAt(randomIndex);
+        }
 
         for(int x = 0; x < spawnWidth; x++) {
-            bool skip = Random.value > 0.5f;
+            bool skip = false;
+
+            foreach(int emptySpot in emptySpots) {
+                if(emptySpot == x) {
+                    skip = true;
+                    break;
+                }
+            }
 
             if(skip) continue;
 

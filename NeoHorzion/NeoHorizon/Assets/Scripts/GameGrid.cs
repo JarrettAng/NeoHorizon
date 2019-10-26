@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameGrid : Singleton<GameGrid>
 {
     [Header("Attributes")]
-    public int Width = 8;
-    public int Height = 25;
+    public int Width = 10;
+    public int Height = 18;
     [SerializeField] private float cellSize = 5;
 
 

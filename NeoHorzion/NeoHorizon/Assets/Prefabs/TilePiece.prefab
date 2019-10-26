@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4338483174078551258}
   - component: {fileID: 3432522641826856467}
   m_Layer: 0
-  m_Name: TempPiece
+  m_Name: TilePiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,12 +69,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bac6350b3dd2d948992c8dbe6317bb8, type: 3}
-  m_Color: {r: 1, g: 0.4764151, b: 0.4764151, a: 1}
+  m_Sprite: {fileID: 21300000, guid: d619c5fc35a71e04f882e8ed11f92812, type: 3}
+  m_Color: {r: 0.92941177, g: 0.23921569, b: 0.4, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -93,3 +93,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
+  CurrentGridPos: {x: 0, y: 0}

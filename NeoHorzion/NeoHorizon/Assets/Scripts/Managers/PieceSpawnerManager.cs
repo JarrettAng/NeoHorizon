@@ -14,5 +14,7 @@ public class PieceSpawnerManager : MonoBehaviour
         searchHeight = gameGrid.Height - 1;
     }
 
+    private void SpawnPiece() {
 
+    }
 }
