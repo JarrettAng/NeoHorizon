@@ -5,7 +5,7 @@ using UnityEngine;
 public class PieceSpawnerManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private MovingPiece movingPiecePrefab;
+    [SerializeField] private MovingPiece movingPiecePrefab = default;
 
     [Header("Attributes")]
     [SerializeField] private int searchHeight;

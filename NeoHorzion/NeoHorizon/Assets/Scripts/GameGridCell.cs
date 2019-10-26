@@ -8,8 +8,8 @@ public class GameGridCell
         position = spawnPos;
         gridPosition = gridPos;
 
-        statusSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        statusSphere.transform.position = position;
+        //statusSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //statusSphere.transform.position = position;
 
         DebugStatus();
     }
@@ -37,11 +37,11 @@ public class GameGridCell
     }
 
     public void DebugStatus() {
-        if(CurrentPiece == null) {
-            statusSphere.GetComponent<Renderer>().material.color = Color.red;
-        } else {
-            statusSphere.GetComponent<Renderer>().material.color = Color.green;
-        }
+        //if(CurrentPiece == null) {
+        //    statusSphere.GetComponent<Renderer>().material.color = Color.red;
+        //} else {
+        //    statusSphere.GetComponent<Renderer>().material.color = Color.green;
+        //}
     }
 
     public Vector2 GetPosition() {
