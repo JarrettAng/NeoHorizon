@@ -165,11 +165,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highscoreText: {fileID: 1721627272}
   scoreText: {fileID: 1127065094}
-  lineText: {fileID: 0}
   pointsPerBlock: 50
   highscore: 0
   currentScore: 0
-  currentLines: 0
 --- !u!1 &44880628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,7 +2495,12 @@ PrefabInstance:
     - target: {fileID: 8016569410619270246, guid: ac2c1e87c16debe488c650c72bf9581c,
         type: 3}
       propertyPath: cooldownTime
-      value: 0.4
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016569410619270246, guid: ac2c1e87c16debe488c650c72bf9581c,
+        type: 3}
+      propertyPath: spamCooldownTime
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac2c1e87c16debe488c650c72bf9581c, type: 3}

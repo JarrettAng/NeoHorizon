@@ -19,7 +19,7 @@ public class GameGridCell
     private Vector2Int gridPosition;
     private Vector2 position;
 
-    private GameObject statusSphere;
+    private GameObject statusSphere = default;
 
     public void AddPiece(TilePiece newPiece) {
         CurrentPiece = newPiece;

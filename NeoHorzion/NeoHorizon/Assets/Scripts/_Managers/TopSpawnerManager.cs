@@ -59,11 +59,15 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
         // And this moving piece that just got added will always move first (so it doesn't block other pieces)
         pieces.Insert(0, movingPiece);
 
-        CheckPieceClearedLine(movingPiece.CurrentGridPos);
-        //EventManager.OnPieceAdded?.Invoke(pieces);
+        if(!CheckPieceClearedLine(movingPiece.CurrentGridPos)) {
+            if(movingPiece.CurrentGridPos.y <= freeHeight) {
+                freeHeight = movingPiece.CurrentGridPos.y - 1;
+                EventManager.OnMoveTopDown?.Invoke(freeHeight);
+            }
+        }
     }
 
-    private void CheckPieceClearedLine(Vector2Int piecePos) {
+    private bool CheckPieceClearedLine(Vector2Int piecePos) {
         bool lineFull = true;
 
         Vector2Int gridCheckPos = new Vector2Int(0, piecePos.y);
@@ -95,6 +99,8 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
                 Invoke("RepopulateGrid", 0.25f);
             }
         }
+
+        return lineFull;
     }
 
     private void RepopulateGrid() {
@@ -167,17 +173,40 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
     }
 
     private void UpdateFreeHeight() {
-        for(int index = gameGrid.Height - 1; index > 0; index--) {
-            if(gameGrid.IsTileEmpty(new Vector2Int(0, index))) {
-                freeHeight = index;
-                break;
+        int lowestHeight = spawnHeight;
+
+        foreach(TilePiece piece in pieces) {
+            if(piece.CurrentGridPos.y <= lowestHeight) {
+                lowestHeight = piece.CurrentGridPos.y - 1;
             }
         }
+
+        freeHeight = lowestHeight;
+
+        //for(int index = gameGrid.Height - 1; index > 0; index--) {
+        //    if(gameGrid.IsTileEmpty(new Vector2Int(0, index))) {
+        //        freeHeight = index;
+        //        break;
+        //    }
+        //}
     }
 
     private void MovePiecesDown() {
+        List<TilePiece> invalidPieces = new List<TilePiece>();
+
         foreach(TilePiece piece in pieces) {
             gameGrid.MovePieceAt(piece.CurrentGridPos, DirectionType.DOWN, out MoveResult moveResult);
+
+            if(moveResult == MoveResult.OUTOFBOUNDS) {
+                invalidPieces.Add(piece);
+
+                gameGrid.ClearPieceAt(piece.CurrentGridPos);
+                piece.Cleared();
+            }
+        }
+
+        foreach(TilePiece piece in invalidPieces) {
+            pieces.Remove(piece);
         }
     }
 }
