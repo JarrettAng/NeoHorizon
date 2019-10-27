@@ -106,7 +106,6 @@ public class GameGrid : Singleton<GameGrid>
 
     public TilePiece GetPieceAt(Vector2Int gridPos) {
         if(gridPos.x < 0 || gridPos.x > Width - 1 || gridPos.y < 0 || gridPos.y > Height - 1) {
-            Debug.LogWarningFormat("Requested invalid piece at {0}", gridPos);
             return null;
         }
 

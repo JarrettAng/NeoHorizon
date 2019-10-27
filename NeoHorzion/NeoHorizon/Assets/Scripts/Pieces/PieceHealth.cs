@@ -6,6 +6,7 @@ public class PieceHealth : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private MovingPiece pieceComponent = default;
+    [SerializeField] private Transform healthBar = default;
 
     [Header("Attributes")]
     [SerializeField] private int maxHealth = 5;
@@ -19,10 +20,12 @@ public class PieceHealth : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        currentHealth--;
         Destroy(other.gameObject);
 
         if(!destroyed) {
+            currentHealth--;
+            UpdateHealthBar();
+
             CheckIfDestroyed();
         }
     }
@@ -32,5 +35,13 @@ public class PieceHealth : MonoBehaviour
             pieceComponent.HandlePieceDestroyed();
             destroyed = true;
         }
+    }
+
+    private void UpdateHealthBar() {
+        Vector2 newScale = healthBar.localScale;
+
+        newScale.x = (float)currentHealth / (float)maxHealth;
+
+        healthBar.transform.localScale = newScale;
     }
 }
