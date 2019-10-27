@@ -63,9 +63,7 @@ public class PieceSpawnerManager : MonoBehaviour
         }
 
         MovingPiece newPiece = Instantiate(movingPiecePrefab);
-        newPiece.MoveDirection = moveDirection;
-
-        gameGrid.AddPieceAt(gridSpawnPos, newPiece, out bool addWasSuccessful);
+        newPiece.Initialize(gridSpawnPos, moveDirection);
     }
 
     private void UpdateHeight(int freeHeight) {

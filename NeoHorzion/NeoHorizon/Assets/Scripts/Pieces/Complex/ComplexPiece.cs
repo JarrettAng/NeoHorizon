@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ComplexPiece : MonoBehaviour
+public abstract class ComplexPiece : MovingPiece
 {
     [Header("References")]
     [SerializeField] protected MovingPiece piecePrefab = default;
 
-    protected Vector2 startingPos;
-    protected Vector2Int startingGridPos;
-    protected bool spawnedOnLeft;
 
-    public void Initialize(Vector2Int _startingGridPos, Vector2 _startingPos, bool _spawnedOnLeft) {
-        startingGridPos = _startingGridPos;
-        startingPos = _startingPos;
-        spawnedOnLeft = _spawnedOnLeft;
 
+    public override void Initialize(Vector2Int _startingGridPos, DirectionType startingMoveDirection) {
         Setup();
+
+        base.Initialize(_startingGridPos, startingMoveDirection);
     }
 
     protected abstract void Setup();

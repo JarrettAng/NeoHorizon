@@ -1149,10 +1149,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piecePrefab: {fileID: 3432522641826856467, guid: 18722371c3e3b814a8471bd86bdcc47c,
     type: 3}
-  gapsPerRow: 1
+  levels:
+  - AppearAtLevel: 0
+    gapsPerRowList: 01000000
+  - AppearAtLevel: 3
+    gapsPerRowList: 02000000
+  - AppearAtLevel: 4
+    gapsPerRowList: 010000000100000001000000010000000100000002000000
+  - AppearAtLevel: 10
+    gapsPerRowList: 0100000001000000010000000100000002000000
+  - AppearAtLevel: 20
+    gapsPerRowList: 01000000010000000100000002000000
+  - AppearAtLevel: 30
+    gapsPerRowList: 010000000100000002000000
+  - AppearAtLevel: 40
+    gapsPerRowList: 0100000002000000
+  - AppearAtLevel: 50
+    gapsPerRowList: 02000000
+  - AppearAtLevel: 75
+    gapsPerRowList: 02000000020000000200000002000000020000000200000002000000020000000200000002000000020000000200000002000000020000000200000003000000
   gapSideBuffer: 1
-  autoMoveSeconds: 20
+  autoMoveSeconds: 10
   freeHeight: 0
+  clearCount: 0
+  currentLevel:
+    AppearAtLevel: 0
+    gapsPerRowList: 
 --- !u!1 &1127065092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,5 +2203,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7145198348311737387, guid: 86986570afb0925459bb3a67d9b276a8,
         type: 3}
+    - target: {fileID: 8016569410619270246, guid: ac2c1e87c16debe488c650c72bf9581c,
+        type: 3}
+      propertyPath: cooldownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac2c1e87c16debe488c650c72bf9581c, type: 3}

@@ -8,30 +8,47 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
     [SerializeField] private TilePiece piecePrefab = default;
 
     [Header("Attributes")]
-    [SerializeField] private int gapsPerRow = 1;
+    [SerializeField] private DifficultyLevel[] levels = default;
     [SerializeField, Tooltip("Use this to prevent gaps spawning at the side")] private int gapSideBuffer = 1;
     [SerializeField] private float autoMoveSeconds = 10f;
 
     [Header("Read-Only")]
     [SerializeField] private int freeHeight;
+    [SerializeField] private int clearCount = 0;
+    [SerializeField] private DifficultyLevel currentLevel;
 
     private GameGrid gameGrid;
 
     private List<TilePiece> pieces;
 
+    private Queue<DifficultyLevel> levelsQueue;
+
     private WaitForSeconds moveWaitTime;
 
     private int spawnHeight;
     private int spawnWidth;
-    
+
+    private void Awake() {
+        moveWaitTime = new WaitForSeconds(autoMoveSeconds);
+        pieces = new List<TilePiece>();
+
+        InitializeLevels();
+
+        EventManager.OnLineClear += UpdateClearCount;
+
+        void InitializeLevels() {
+            levelsQueue = new Queue<DifficultyLevel>();
+
+            foreach(DifficultyLevel level in levels) {
+                levelsQueue.Enqueue(level);
+            }
+        }
+    }
+
     private void Start() {
         gameGrid = GameGrid.Instance;
         spawnHeight = gameGrid.Height - 1;
         spawnWidth = gameGrid.Width;
-
-        moveWaitTime = new WaitForSeconds(autoMoveSeconds);
-
-        pieces = new List<TilePiece>();
 
         StartCoroutine(MoveDown());
     }
@@ -95,6 +112,15 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
     }
 
     private void SpawnRow() {
+        if(levelsQueue.Count > 0) {
+            if(clearCount >= levelsQueue.Peek().AppearAtLevel) {
+                currentLevel = levelsQueue.Dequeue();
+            }
+        }
+
+        int[] gapChoices = currentLevel.gapsPerRowList;
+        int gapsPerRow = gapChoices[Random.Range(0, gapChoices.Length)];
+
         List<int> emptySpots = new List<int>();
 
         int maxIndex = spawnWidth - gapSideBuffer;
@@ -134,6 +160,10 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
         }
 
         UpdateFreeHeight();
+    }
+
+    private void UpdateClearCount(List<TilePiece> piecesToRemove) {
+        clearCount++;
     }
 
     private void UpdateFreeHeight() {
