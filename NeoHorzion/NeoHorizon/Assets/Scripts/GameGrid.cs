@@ -39,7 +39,7 @@ public class GameGrid : Singleton<GameGrid>
         }
     }
 
-    public void AddPiece(Vector2Int gridPos, TilePiece newPiece, out bool addWasSuccessful) {
+    public void AddPieceAt(Vector2Int gridPos, TilePiece newPiece, out bool addWasSuccessful) {
         if(IsTileEmpty(gridPos)) {
             grid[gridPos.x, gridPos.y].AddPiece(newPiece);
             addWasSuccessful = true;
@@ -79,9 +79,6 @@ public class GameGrid : Singleton<GameGrid>
         }
 
         if(IsOutOfBounds(newPos)) {
-            TilePiece piece = grid[gridPos.x, gridPos.y].CurrentPiece;
-
-            grid[gridPos.x, gridPos.y].Clear();
             moveResult = MoveResult.OUTOFBOUNDS;
         } else {
             if(IsTileEmpty(newPos)) {
@@ -103,10 +100,6 @@ public class GameGrid : Singleton<GameGrid>
             if(pos.x < 0 || pos.x > Width - 1) outOfBounds = true;
             if(pos.y < 0 || pos.y > Height - 1) outOfBounds = true;
 
-            if(outOfBounds) {
-                Debug.LogErrorFormat("Tile out! Moving direction: {0}, pos x:{1} pos y:{2}", moveDirection, pos.x, pos.y);
-            }
-
             return outOfBounds;
         }
     }
@@ -118,5 +111,14 @@ public class GameGrid : Singleton<GameGrid>
         }
 
         return grid[gridPos.x, gridPos.y].CurrentPiece;
+    }
+
+    public void ClearPieceAt(Vector2Int gridPos) {
+        if(gridPos.x < 0 || gridPos.x > Width - 1 || gridPos.y < 0 || gridPos.y > Height - 1) {
+            Debug.LogWarningFormat("Requested clearing at invalid grid position: {0}", gridPos);
+            return;
+        }
+
+        grid[gridPos.x, gridPos.y].Clear();
     }
 }

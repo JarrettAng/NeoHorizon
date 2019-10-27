@@ -45,6 +45,7 @@ public class MovingPiece : TilePiece
                     break;
 
                 case MoveResult.OUTOFBOUNDS:
+                    gameGrid.ClearPieceAt(CurrentGridPos);
                     Destroy();
                     break;
             }
@@ -64,6 +65,8 @@ public class MovingPiece : TilePiece
             switch(moveSuccess) {
                 case MoveResult.OUTOFBOUNDS:
                     shouldStopZooming = true;
+                    Type = PieceType.STATIC;
+                    TopSpawnerManager.Instance.AddMovingPiece(this);
                     break;
             }
 

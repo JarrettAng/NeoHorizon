@@ -37,9 +37,43 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
     }
 
     public void AddMovingPiece(TilePiece movingPiece) {
-        Debug.Log("added!");
-
+        // Why insert at index 0 you ask? Well, the system to move pieces down is run in a foreach loop.
+        // Meaning the pieces at the bottom must move down first before the pieces at the top (otherwise they won't move)
+        // And this moving piece that just got added will always move first (so it doesn't block other pieces)
         pieces.Insert(0, movingPiece);
+
+        CheckPieceClearedLine(movingPiece.CurrentGridPos);
+        //EventManager.OnPieceAdded?.Invoke(pieces);
+    }
+
+    private void CheckPieceClearedLine(Vector2Int piecePos) {
+        bool lineFull = true;
+
+        Vector2Int gridCheckPos = new Vector2Int(0, piecePos.y);
+        for(int xPos = 0; xPos < spawnWidth; xPos++) {
+            gridCheckPos.x = xPos;
+
+            if(gameGrid.IsTileEmpty(gridCheckPos)) {
+                lineFull = false;
+                break;
+            }
+        }
+
+        if(lineFull) {
+            List<TilePiece> piecesToRemove = new List<TilePiece>();
+
+            foreach(TilePiece piece in pieces) {
+                if(piece.CurrentGridPos.y <= piecePos.y) {
+                    piecesToRemove.Add(piece);
+                }
+            }
+
+            foreach(TilePiece piece in piecesToRemove) {
+                pieces.Remove(piece);
+            }
+
+            EventManager.OnLineClear?.Invoke(piecesToRemove);
+        }
     }
 
     private IEnumerator MoveDown() {
@@ -82,7 +116,7 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
             TilePiece newPiece = Instantiate(piecePrefab);
             newPiece.Type = PieceType.STATIC;
 
-            gameGrid.AddPiece(spawnPos, newPiece, out bool addWasSuccessful);
+            gameGrid.AddPieceAt(spawnPos, newPiece, out bool addWasSuccessful);
 
             if(!addWasSuccessful) {
                 newPiece.Destroy();
