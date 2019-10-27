@@ -9,8 +9,6 @@ public class TilePiece : MonoBehaviour
     public Vector2Int CurrentGridPos;
 
     public void Destroy() {
-        Debug.Log("Piece destroyed!");
-
         Destroy(gameObject);
     }
 }

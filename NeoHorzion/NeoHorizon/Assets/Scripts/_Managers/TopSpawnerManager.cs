@@ -73,13 +73,21 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
             }
 
             EventManager.OnLineClear?.Invoke(piecesToRemove);
+
+            if(pieces.Count <= 0) {
+                Invoke("RepopulateGrid", 0.25f);
+            }
         }
+    }
+
+    private void RepopulateGrid() {
+        MovePiecesDown();
+        SpawnRow();
     }
 
     private IEnumerator MoveDown() {
         while(true) {
             SpawnRow();
-            UpdateFreeHeight();
             EventManager.OnMoveTopDown?.Invoke(freeHeight);
             yield return moveWaitTime;
             MovePiecesDown();
@@ -124,6 +132,8 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
 
             pieces.Add(newPiece);
         }
+
+        UpdateFreeHeight();
     }
 
     private void UpdateFreeHeight() {

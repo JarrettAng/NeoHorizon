@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4338483174078551258}
   - component: {fileID: 6339396209977118830}
   - component: {fileID: 2007130027358732871}
-  - component: {fileID: 7653207863487169252}
+  - component: {fileID: 8722184554067688876}
   - component: {fileID: 3919415536755841490}
   m_Layer: 9
   m_Name: MovingTilePiece
@@ -130,7 +130,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7653207863487169252
+--- !u!114 &8722184554067688876
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4338483174078551259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 619b7ebd57209764ba43466114890141, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c7dd79b589016342b1356e52d5dbcf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc54f818e4c2754383c90cf41e54907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceComponent: {fileID: 7653207863487169252}
+  pieceComponent: {fileID: 8722184554067688876}
   maxHealth: 5
   currentHealth: 0
   destroyed: 0
