@@ -15,11 +15,19 @@ public class PieceHealth : MonoBehaviour
     [SerializeField] private int currentHealth;
     [SerializeField] private bool destroyed = false;
 
+    private SoundManager soundManager;
+
+    private void Awake() {
+        soundManager = SoundManager.Instance;
+    }
+
     private void Start() {
         currentHealth = maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        soundManager.PlaySound("Hit");
+
         Destroy(other.gameObject);
 
         if(!destroyed) {
@@ -32,6 +40,7 @@ public class PieceHealth : MonoBehaviour
 
     private void CheckIfDestroyed() {
         if(currentHealth <= 0) {
+            soundManager.PlaySound("Zoom");
             pieceComponent.HandlePieceDestroyed();
             destroyed = true;
         }

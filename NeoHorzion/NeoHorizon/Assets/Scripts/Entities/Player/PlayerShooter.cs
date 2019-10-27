@@ -11,7 +11,13 @@ public class PlayerShooter : MonoBehaviour
     [Header("Shooting controls")] // Used to prevent hardcoding of keys (Use ProjectSettings > Input to change/set more keys of type)
     [SerializeField, Tooltip("Axes for shooting")] private string shootButton = "Shoot";
 
+    private SoundManager soundManager;
+
     private float currentCooldown = 0f;
+
+    private void Awake() {
+        soundManager = SoundManager.Instance;
+    }
 
     private void Update()
     {
@@ -25,6 +31,8 @@ public class PlayerShooter : MonoBehaviour
     private void HandleInput() {
         if(Input.GetButton(shootButton)) {
             currentCooldown += cooldownTime;
+
+            soundManager.PlaySound("Shoot");
 
             Instantiate(bulletPrefab, transform.position, transform.rotation);
         }

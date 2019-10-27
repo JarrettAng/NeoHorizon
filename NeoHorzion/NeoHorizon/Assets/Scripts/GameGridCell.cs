@@ -8,10 +8,10 @@ public class GameGridCell
         position = spawnPos;
         gridPosition = gridPos;
 
-        statusSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        statusSphere.transform.position = position;
+        //statusSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        //statusSphere.transform.position = position;
 
-        DebugStatus();
+        //DebugStatus();
     }
 
     public TilePiece CurrentPiece;
@@ -27,13 +27,13 @@ public class GameGridCell
         CurrentPiece.transform.position = position;
         CurrentPiece.CurrentGridPos = gridPosition;
 
-        DebugStatus();
+        //DebugStatus();
     }
 
     public void Clear() {
         CurrentPiece = null;
 
-        DebugStatus();
+        //DebugStatus();
     }
 
     public void DebugStatus() {

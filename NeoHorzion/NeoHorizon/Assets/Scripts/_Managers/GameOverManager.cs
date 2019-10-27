@@ -10,6 +10,8 @@ public class GameOverManager : MonoBehaviour
     }
 
     private void ShowGameOver() {
+        SoundManager.Instance.PlaySound("GameOver");
+
         Time.timeScale = 0;
     }
 }

@@ -145,8 +145,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   CurrentGridPos: {x: 0, y: 0}
-  moveWaitStep: 1.5
-  zoomWaitStep: 0.5
+  moveWaitStep: 1
+  zoomWaitStep: 0.25
   startingGridPos: {x: 0, y: 0}
   MoveDirection: 0
 --- !u!114 &3919415536755841490
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieceComponent: {fileID: 8722184554067688876}
   healthBar: {fileID: 2917339268783536815}
-  maxHealth: 5
+  maxHealth: 3
   currentHealth: 0
   destroyed: 0
 --- !u!1 &5364114245457433423

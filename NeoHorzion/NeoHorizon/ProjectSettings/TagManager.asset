@@ -14,7 +14,7 @@ TagManager:
   - 
   - 
   - DeathZone
-  - MovingPiece
+  - Piece
   - Bullet
   - World
   - 
