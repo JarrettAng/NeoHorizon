@@ -38,6 +38,14 @@ public class PieceHealth : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Runs when a piece gets added to the static blob
+    /// </summary>
+    public void HandlePieceAttached() {
+        healthBar.gameObject.SetActive(false);
+        destroyed = true;
+    }
+
     private void CheckIfDestroyed() {
         if(currentHealth <= 0) {
             soundManager.PlaySound("Zoom");

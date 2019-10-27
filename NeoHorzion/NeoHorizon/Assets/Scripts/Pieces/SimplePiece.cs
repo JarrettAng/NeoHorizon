@@ -73,7 +73,9 @@ public class SimplePiece : MovingPiece {
 			case PieceType.STATIC:
 				Type = PieceType.STATIC;
 				TopSpawnerManager.Instance.AddMovingPiece(this);
-				break;
+                GetComponent<PieceHealth>().HandlePieceAttached();
+
+                break;
 		}
 
 		return false;

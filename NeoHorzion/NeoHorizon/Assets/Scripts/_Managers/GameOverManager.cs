@@ -12,6 +12,9 @@ public class GameOverManager : MonoBehaviour
     private void ShowGameOver() {
         SoundManager.Instance.PlaySound("GameOver");
 
+
+        Debug.Log("GAME OVER!!!!!!!!!!!!!!!!!!!!");
+
         Time.timeScale = 0;
     }
 }
