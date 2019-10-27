@@ -39,11 +39,12 @@ public class GameGrid : Singleton<GameGrid>
         }
     }
 
-    public void AddPiece(Vector2Int gridPos, TilePiece newPiece) {
+    public void AddPiece(Vector2Int gridPos, TilePiece newPiece, out bool addWasSuccessful) {
         if(IsTileEmpty(gridPos)) {
             grid[gridPos.x, gridPos.y].AddPiece(newPiece);
+            addWasSuccessful = true;
         } else {
-            Debug.LogErrorFormat("Tried to place tile at {0} even though it already contains a piece!");
+            addWasSuccessful = false;
         }
     }
 
@@ -51,7 +52,7 @@ public class GameGrid : Singleton<GameGrid>
         return grid[gridPos.x, gridPos.y].CurrentPiece == null;
     }
 
-    public void MovePieceAt(Vector2Int gridPos, DirectionType moveDirection, out bool moveResult) {
+    public void MovePieceAt(Vector2Int gridPos, DirectionType moveDirection, out MoveResult moveResult) {
 
         Vector2Int newPos = new Vector2Int(gridPos.x, gridPos.y);
 
@@ -79,10 +80,9 @@ public class GameGrid : Singleton<GameGrid>
 
         if(IsOutOfBounds(newPos)) {
             TilePiece piece = grid[gridPos.x, gridPos.y].CurrentPiece;
-            piece.Destroy();
 
             grid[gridPos.x, gridPos.y].Clear();
-            moveResult = false;
+            moveResult = MoveResult.OUTOFBOUNDS;
         } else {
             if(IsTileEmpty(newPos)) {
                 TilePiece piece = grid[gridPos.x, gridPos.y].CurrentPiece;
@@ -90,10 +90,9 @@ public class GameGrid : Singleton<GameGrid>
 
                 grid[newPos.x, newPos.y].AddPiece(piece);
 
-                moveResult = true;
+                moveResult = MoveResult.SUCCESS;
             } else {
-                Debug.LogWarning("Tile not clear! Can't Move!!");
-                moveResult = false;
+                moveResult = MoveResult.BLOCKED;
             }
         }
 
@@ -104,7 +103,20 @@ public class GameGrid : Singleton<GameGrid>
             if(pos.x < 0 || pos.x > Width - 1) outOfBounds = true;
             if(pos.y < 0 || pos.y > Height - 1) outOfBounds = true;
 
+            if(outOfBounds) {
+                Debug.LogErrorFormat("Tile out! Moving direction: {0}, pos x:{1} pos y:{2}", moveDirection, pos.x, pos.y);
+            }
+
             return outOfBounds;
         }
+    }
+
+    public TilePiece GetPieceAt(Vector2Int gridPos) {
+        if(gridPos.x < 0 || gridPos.x > Width - 1 || gridPos.y < 0 || gridPos.y > Height - 1) {
+            Debug.LogWarningFormat("Requested invalid piece at {0}", gridPos);
+            return null;
+        }
+
+        return grid[gridPos.x, gridPos.y].CurrentPiece;
     }
 }

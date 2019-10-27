@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TopSpawnerManager : MonoBehaviour
+public class TopSpawnerManager : Singleton<TopSpawnerManager>
 {
     [Header("References")]
     [SerializeField] private TilePiece piecePrefab = default;
@@ -11,6 +11,9 @@ public class TopSpawnerManager : MonoBehaviour
     [SerializeField] private int gapsPerRow = 1;
     [SerializeField, Tooltip("Use this to prevent gaps spawning at the side")] private int gapSideBuffer = 1;
     [SerializeField] private float autoMoveSeconds = 10f;
+
+    [Header("Read-Only")]
+    [SerializeField] private int freeHeight;
 
     private GameGrid gameGrid;
 
@@ -31,6 +34,22 @@ public class TopSpawnerManager : MonoBehaviour
         pieces = new List<TilePiece>();
 
         StartCoroutine(MoveDown());
+    }
+
+    public void AddMovingPiece(TilePiece movingPiece) {
+        Debug.Log("added!");
+
+        pieces.Insert(0, movingPiece);
+    }
+
+    private IEnumerator MoveDown() {
+        while(true) {
+            SpawnRow();
+            UpdateFreeHeight();
+            EventManager.OnMoveTopDown?.Invoke(freeHeight);
+            yield return moveWaitTime;
+            MovePiecesDown();
+        }
     }
 
     private void SpawnRow() {
@@ -63,23 +82,28 @@ public class TopSpawnerManager : MonoBehaviour
             TilePiece newPiece = Instantiate(piecePrefab);
             newPiece.Type = PieceType.STATIC;
 
-            gameGrid.AddPiece(spawnPos, newPiece);
+            gameGrid.AddPiece(spawnPos, newPiece, out bool addWasSuccessful);
+
+            if(!addWasSuccessful) {
+                newPiece.Destroy();
+            }
 
             pieces.Add(newPiece);
         }
     }
 
-    private IEnumerator MoveDown() {
-        while(true) {
-            SpawnRow();
-            yield return moveWaitTime;
-            MovePiecesDown();
+    private void UpdateFreeHeight() {
+        for(int index = gameGrid.Height - 1; index > 0; index--) {
+            if(gameGrid.IsTileEmpty(new Vector2Int(0, index))) {
+                freeHeight = index;
+                break;
+            }
         }
     }
 
     private void MovePiecesDown() {
         foreach(TilePiece piece in pieces) {
-            gameGrid.MovePieceAt(piece.CurrentGridPos, DirectionType.DOWN, out bool moveResult);
+            gameGrid.MovePieceAt(piece.CurrentGridPos, DirectionType.DOWN, out MoveResult moveResult);
         }
     }
 }

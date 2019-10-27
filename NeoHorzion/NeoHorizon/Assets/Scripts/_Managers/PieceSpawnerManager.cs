@@ -8,8 +8,10 @@ public class PieceSpawnerManager : MonoBehaviour
     [SerializeField] private MovingPiece movingPiecePrefab = default;
 
     [Header("Attributes")]
-    [SerializeField] private int searchHeight;
     [SerializeField] private float spawnFrequency = 2f;
+
+    [Header("Read-Only")]
+    [SerializeField] private int searchHeight;
 
     private GameGrid gameGrid;
     private WaitForSeconds waitTime;
@@ -21,6 +23,8 @@ public class PieceSpawnerManager : MonoBehaviour
         waitTime = new WaitForSeconds(spawnFrequency);
 
         rightSpawnIndex = gameGrid.Width - 1;
+
+        EventManager.OnMoveTopDown += UpdateHeight;
     }
 
     private void Start() {
@@ -29,7 +33,6 @@ public class PieceSpawnerManager : MonoBehaviour
 
     private IEnumerator Spawner() {
         while(true) {
-            UpdateHeight();
             SpawnPiece();
             yield return waitTime;
         }
@@ -62,15 +65,10 @@ public class PieceSpawnerManager : MonoBehaviour
         MovingPiece newPiece = Instantiate(movingPiecePrefab);
         newPiece.MoveDirection = moveDirection;
 
-        gameGrid.AddPiece(gridSpawnPos, newPiece);
+        gameGrid.AddPiece(gridSpawnPos, newPiece, out bool addWasSuccessful);
     }
 
-    private void UpdateHeight() {
-        for(int index = gameGrid.Height - 1; index > 0; index--) {
-            if(gameGrid.IsTileEmpty(new Vector2Int(0, index))) {
-                searchHeight = index - 2;
-                break;
-            }
-        }
+    private void UpdateHeight(int freeHeight) {
+        searchHeight = freeHeight - 2;
     }
 }
