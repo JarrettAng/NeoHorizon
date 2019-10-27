@@ -3,52 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ScoreManager : MonoBehaviour
-{
-    [Header("References")]
-    [SerializeField] private TextMeshProUGUI highscoreText = default;
-    [SerializeField] private TextMeshProUGUI scoreText = default;
+public class ScoreManager : MonoBehaviour {
+	[Header("References")]
+	[SerializeField] private TextMeshProUGUI highscoreText = default;
+	[SerializeField] private TextMeshProUGUI scoreText = default;
 
-    [Header("Attributes")]
-    [SerializeField] private int pointsPerBlock = 50;
+	[Header("Attributes")]
+	[SerializeField] private int pointsPerBlock = 50;
 
-    [Header("Read-only")]
-    [SerializeField] private int highscore;
-    [SerializeField] private int currentScore;
+	[Header("Read-only")]
+	[SerializeField] private int highscore;
+	[SerializeField] private int currentScore;
 
-    private void Awake() {
-        EventManager.OnLineClear += UpdateScore;
-    }
+	private void Awake() {
+		EventManager.OnLineClear += UpdateScore;
+	}
 
-    private void Start() {
-        LoadValues();
+	private void Start() {
+		LoadValues();
 
-        UpdateHighscore();
-        UpdateScore();
+		UpdateHighscore();
+		UpdateScore();
 
-        void LoadValues() {
-            highscore = PlayerPrefs.GetInt("Highscore", 0);
-            currentScore = 0;
-        }
-    }
+		void LoadValues() {
+			highscore = PlayerPrefs.GetInt("Highscore", 0);
+			currentScore = 0;
+		}
+	}
 
-    private void UpdateScore(List<TilePiece> piecesRemoved) {
-        currentScore += piecesRemoved.Count * pointsPerBlock;
+	private void UpdateScore(List<TilePiece> piecesRemoved) {
+		currentScore += piecesRemoved.Count * pointsPerBlock;
 
-        UpdateHighscore();
-        UpdateScore();
-    }
+		UpdateHighscore();
+		UpdateScore();
+	}
 
-    private void UpdateHighscore() {
-        if(currentScore > highscore) {
-            highscore = currentScore;
-            PlayerPrefs.SetInt("Highscore", highscore);
-        }
+	private void UpdateHighscore() {
+		if(currentScore > highscore) {
+			highscore = currentScore;
+			PlayerPrefs.SetInt("Highscore", highscore);
+		}
 
-        highscoreText.text = highscore.ToString("000000");
-    }
+		highscoreText.text = highscore.ToString("000000");
+	}
 
-    private void UpdateScore() {
-        scoreText.text = currentScore.ToString("000000");
-    }
+	private void UpdateScore() {
+		scoreText.text = currentScore.ToString("000000");
+	}
 }

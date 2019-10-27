@@ -17,7 +17,7 @@ TagManager:
   - Piece
   - Bullet
   - World
-  - 
+  - PostFx
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 4041297237
     locked: 0
