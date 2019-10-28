@@ -60,10 +60,7 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
         pieces.Insert(0, movingPiece);
 
         if(!CheckPieceClearedLine(movingPiece.CurrentGridPos)) {
-            if(movingPiece.CurrentGridPos.y <= freeHeight) {
-                freeHeight = movingPiece.CurrentGridPos.y - 1;
-                EventManager.OnMoveTopDown?.Invoke(freeHeight);
-            }
+            UpdateFreeHeight();
         }
     }
 
