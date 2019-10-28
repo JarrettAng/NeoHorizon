@@ -8,6 +8,7 @@ public class SceneSwapper : Singleton<SceneSwapper>
     [Header("Attributes")]
     [SerializeField] private string startSceneName = "Start";
     [SerializeField] private string shooterSceneName = "ShooterMain";
+    [SerializeField] private string ballSceneName = "BallMain";
 
     public void LoadStartScene() {
         SceneManager.LoadScene(startSceneName);
@@ -15,6 +16,10 @@ public class SceneSwapper : Singleton<SceneSwapper>
 
     public void LoadShootScene() {
         SceneManager.LoadScene(shooterSceneName);
+    }
+
+    public void LoadBallScene() {
+        SceneManager.LoadScene(ballSceneName);
     }
 
     public void ReloadCurrentScene() {
