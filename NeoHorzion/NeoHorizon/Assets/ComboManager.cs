@@ -49,13 +49,14 @@ public class ComboManager : Singleton<ComboManager> {
 	}
 
 	public void IncreaseCombo() {
-		// Reset combo bar.
-		comboBarTransform.localScale = new Vector2(1, comboBarTransform.localScale.y);
 		elapsedTime = 0;
 
 		if(!comboActive) {
 			ToggleComboStatus(true);
 		}
+
+		// Reset combo bar.
+		comboBarTransform.localScale = new Vector2(1, comboBarTransform.localScale.y);
 
 		// Increase and update the current combo.
 		currentCombo++;
