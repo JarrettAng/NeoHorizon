@@ -13,7 +13,7 @@ public class LeaderboardSlot : MonoBehaviour
 
     public void UpdateDisplay(PlayerInfo infoToLoad) {
         nameText.text = infoToLoad.Name;
-        totalText.text = infoToLoad.GetTotal().ToString();
+        totalText.text = infoToLoad.GetTotal().ToString("000000");
         shootText.text = infoToLoad.shootScore.ToString("000000");
         ballText.text = infoToLoad.ballScore.ToString("000000");
     }

@@ -23,8 +23,26 @@ public class HighscoreManager : Singleton<HighscoreManager>
     /// </summary>
     /// <param name="index"></param>
     public PlayerInfo GetInfoAtSlot(int index) {
-        if(index == 0 || index >= storedData.Count) return null;
+        if(index < 0 || index >= storedData.Count) return null;
 
         return storedData[index];
+    }
+
+    public PlayerInfo GetPlayerDataFromName(string name) {
+        PlayerInfo requestedData = storedData.Find(x => x.Name == name);
+
+        if(requestedData == null) {
+            requestedData = new PlayerInfo {
+                Name = name,
+            };
+
+            storedData.Add(requestedData);
+        }
+
+        return requestedData;
+    }
+
+    public void SavePlayerData() {
+        SaveSystem.SaveHighscoreData(storedData);
     }
 }
