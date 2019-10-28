@@ -5,35 +5,38 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour {
 	[Header("References")]
+	[SerializeField] private TextMeshProUGUI nameText = default;
 	[SerializeField] private TextMeshProUGUI highscoreText = default;
 	[SerializeField] private TextMeshProUGUI scoreText = default;
 	[SerializeField] private TextMeshProUGUI linesText = default;
 
-	[Header("Attributes")]
+    [Header("Attributes")]
+    [SerializeField] private string ballORshoot = "shoot";
 	[SerializeField] private int pointsPerBlock = 50;
 
-	[Header("Read-only")]
-	[SerializeField] private int highscore;
-	[SerializeField] private int currentScore;
-	[SerializeField] private int linesCleared;
+    [Header("Read-only")]
+    [SerializeField] private PlayerInfo currentData; // Reference type, updates highscore automatically
+    [SerializeField] private int currentScore = 0;
+    [SerializeField] private int linesCleared = 0;
+
+    private HighscoreManager highscoreManager;
 
 	private void Awake() {
 		EventManager.OnLineClear += UpdateScore;
+
+        highscoreManager = HighscoreManager.Instance;
 	}
 
 	private void Start() {
-		LoadValues();
+        string name = SaveSystem.LoadCurrentName();
+        currentData = highscoreManager.GetPlayerDataFromName(name);
 
-		UpdateHighscore();
-		UpdateScore();
+        nameText.text = name;
+
+        UpdateHighscore();
+        UpdateScore();
         UpdateLines();
-
-        void LoadValues() {
-			highscore = PlayerPrefs.GetInt("Highscore", 0);
-			currentScore = 0;
-            linesCleared = 0;
-        }
-	}
+    }
 
 	private void UpdateScore(List<TilePiece> piecesRemoved) {
 		currentScore += piecesRemoved.Count * pointsPerBlock;
@@ -45,13 +48,27 @@ public class ScoreManager : MonoBehaviour {
     }
 
 	private void UpdateHighscore() {
-		if(currentScore > highscore) {
-			highscore = currentScore;
-			PlayerPrefs.SetInt("Highscore", highscore);
-		}
+        if(ballORshoot == "shoot") {
+            if(currentScore > currentData.shootScore) {
+                currentData.shootScore = currentScore;
 
-		highscoreText.text = highscore.ToString("000000");
-	}
+                highscoreManager.SavePlayerData();
+            }
+
+            highscoreText.text = currentData.shootScore.ToString("000000");
+
+        } else if(ballORshoot == "ball") {
+            if(currentScore > currentData.ballScore) {
+                currentData.ballScore = currentScore;
+
+                highscoreManager.SavePlayerData();
+            }
+
+            highscoreText.text = currentData.ballScore.ToString("000000");
+        } else {
+            Debug.LogErrorFormat("Invalid gamemode for ScoreManager. Given: {0}, accepted only ball or shoot", ballORshoot);
+        }
+    }
 
 	private void UpdateScore() {
 		scoreText.text = currentScore.ToString("000000");
