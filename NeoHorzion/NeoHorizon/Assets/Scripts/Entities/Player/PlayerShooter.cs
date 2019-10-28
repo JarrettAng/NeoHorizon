@@ -54,8 +54,6 @@ public class PlayerShooter : MonoBehaviour
     }
 
     private void HandleInput() {
- 
-
         if(Input.GetButton(shootButton)) {
             currentHoldCooldown = cooldownTime;
 
