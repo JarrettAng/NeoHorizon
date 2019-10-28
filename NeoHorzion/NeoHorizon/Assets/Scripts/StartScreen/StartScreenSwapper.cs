@@ -31,4 +31,8 @@ public class StartScreenSwapper : Singleton<StartScreenSwapper>
         mainPanel.SetActive(false);
         nameSwapperPanel.SetActive(false);
     }
+
+    public void QuitGame() {
+
+    }
 }
