@@ -5,22 +5,22 @@ using UnityEngine;
 public class BallShootLine : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer = default;
 
     [Header("Attributes")]
-    [SerializeField] private Color defaultColor;
-    [SerializeField] private Color shooterColor;
+    [SerializeField] private Color defaultColor = default;
+    [SerializeField] private Color shooterColor = default;
 
     [Header("Read-Only")]
-    [SerializeField] private bool shooterLine;
+    public bool ShooterLine;
 
     public void ToggleShooterLine(bool shooter) {
         if(shooter) {
             spriteRenderer.color = shooterColor;
-            shooterLine = true;
+            ShooterLine = true;
         } else {
             spriteRenderer.color = defaultColor;
-            shooterLine = false;
+            ShooterLine = false;
         }
     }
 }

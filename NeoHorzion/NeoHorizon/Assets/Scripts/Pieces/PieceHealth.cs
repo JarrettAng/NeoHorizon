@@ -9,13 +9,13 @@ public class PieceHealth : MonoBehaviour
     [SerializeField] private Transform healthBar = default;
 
     [Header("Attributes")]
-    [SerializeField] private int maxHealth = 5;
+    [SerializeField] protected int maxHealth = 5;
 
     [Header("Read-Only")]
-    [SerializeField] private int currentHealth;
-    [SerializeField] private bool destroyed = false;
+    [SerializeField] protected int currentHealth;
+    [SerializeField] protected bool destroyed = false;
 
-    private SoundManager soundManager;
+    protected SoundManager soundManager;
 
     private void Awake() {
         soundManager = SoundManager.Instance;
@@ -46,7 +46,7 @@ public class PieceHealth : MonoBehaviour
         destroyed = true;
     }
 
-    private void CheckIfDestroyed() {
+    protected void CheckIfDestroyed() {
         if(currentHealth <= 0) {
             soundManager.PlaySound("Zoom");
             pieceComponent.HandlePieceDestroyed();
@@ -54,7 +54,7 @@ public class PieceHealth : MonoBehaviour
         }
     }
 
-    private void UpdateHealthBar() {
+    protected void UpdateHealthBar() {
         Vector2 newScale = healthBar.localScale;
 
         newScale.x = (float)currentHealth / (float)maxHealth;

@@ -89,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3987620946810589190}
   - component: {fileID: 7983508544037337150}
+  - component: {fileID: 4524238512663891804}
   m_Layer: 0
   m_Name: RightTracer
   m_TagString: Untagged
@@ -108,7 +109,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 20, z: 8}
   m_Children: []
   m_Father: {fileID: 5792311950428013530}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!212 &7983508544037337150
 SpriteRenderer:
@@ -158,85 +159,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!1 &4891790475198606511
-GameObject:
+--- !u!114 &4524238512663891804
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1114716715845891488}
-  - component: {fileID: 3142057886272797576}
-  m_Layer: 0
-  m_Name: CentreTracer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1114716715845891488
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4891790475198606511}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
-  m_LocalScale: {x: 0.8, y: 20, z: 8}
-  m_Children: []
-  m_Father: {fileID: 5792311950428013530}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3142057886272797576
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4891790475198606511}
+  m_GameObject: {fileID: 4761344180877856409}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bac6350b3dd2d948992c8dbe6317bb8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.078431375}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 2
-  m_SpriteSortPoint: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd07b5957e0f584d9d6777d1e36e5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7983508544037337150}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0.078431375}
+  shooterColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  ShooterLine: 0
 --- !u!1 &5792311950428013532
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +187,7 @@ GameObject:
   - component: {fileID: 2213856463310778362}
   - component: {fileID: 2328627347665977685}
   - component: {fileID: 5214649775499529485}
+  - component: {fileID: 7759315735634640362}
   m_Layer: 11
   m_Name: BallPlayer
   m_TagString: Untagged
@@ -270,7 +209,6 @@ Transform:
   - {fileID: 353100357921372450}
   - {fileID: 3703069091770677779}
   - {fileID: 9005592552532435677}
-  - {fileID: 1114716715845891488}
   - {fileID: 3987620946810589190}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -305,11 +243,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 5792311950428013532}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c62d142d3263da546960d68dabd40f9a, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.05}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -320,7 +258,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8, y: 1}
+  m_Size: {x: 8, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &5214649775499529485
 MonoBehaviour:
@@ -336,6 +274,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 25
   horizontalMovement: Horizontal
+--- !u!114 &7759315735634640362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5792311950428013532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4793558792a3d7419888b5f43b18896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  twoShootLines:
+  - {fileID: 2175097666584616535}
+  - {fileID: 4524238512663891804}
+  ballPrefab: {fileID: 2983586168492740667, guid: 11d2c284ab69c5a46a1fd2ed3d257058,
+    type: 3}
+  paddleBallObject: {fileID: 353100357921372450}
+  swapTime: 0.5
+  shootButton: Shoot
+  hasBall: 0
 --- !u!1 &8735607618548800213
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9005592552532435677}
   - component: {fileID: 3290704474743662964}
+  - component: {fileID: 2175097666584616535}
   m_Layer: 0
   m_Name: LeftTracer
   m_TagString: Untagged
@@ -494,3 +454,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &2175097666584616535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143944167806472835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd07b5957e0f584d9d6777d1e36e5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3290704474743662964}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0.078431375}
+  shooterColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  ShooterLine: 0
