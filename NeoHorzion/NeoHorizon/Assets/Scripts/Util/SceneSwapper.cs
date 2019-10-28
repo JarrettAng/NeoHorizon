@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneSwapper : MonoBehaviour
+public class SceneSwapper : Singleton<SceneSwapper>
 {
     [Header("Attributes")]
     [SerializeField] private string startSceneName = "Start";
@@ -15,5 +15,9 @@ public class SceneSwapper : MonoBehaviour
 
     public void LoadShootScene() {
         SceneManager.LoadScene(shooterSceneName);
+    }
+
+    public void ReloadCurrentScene() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

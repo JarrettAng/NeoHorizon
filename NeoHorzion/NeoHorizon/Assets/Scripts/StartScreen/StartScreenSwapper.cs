@@ -8,6 +8,10 @@ public class StartScreenSwapper : Singleton<StartScreenSwapper>
     [SerializeField] private GameObject mainPanel = default;
     [SerializeField] private GameObject nameSwapperPanel = default;
     [SerializeField] private GameObject highscoresPanel = default;
+    [SerializeField] private GameObject creditsPanel = default;
+
+    [Header("Other References")]
+    [SerializeField] private GameObject quitWebText = default;
 
     // PSA: This entire script is hardcoded! Soz
 
@@ -16,6 +20,7 @@ public class StartScreenSwapper : Singleton<StartScreenSwapper>
 
         nameSwapperPanel.SetActive(false);
         highscoresPanel.SetActive(false);
+        creditsPanel.SetActive(false);
     }
 
     public void OpenNameSwapperPanel() {
@@ -23,6 +28,7 @@ public class StartScreenSwapper : Singleton<StartScreenSwapper>
 
         mainPanel.SetActive(false);
         highscoresPanel.SetActive(false);
+        creditsPanel.SetActive(false);
     }
 
     public void OpenHighscoresPanel() {
@@ -30,9 +36,23 @@ public class StartScreenSwapper : Singleton<StartScreenSwapper>
 
         mainPanel.SetActive(false);
         nameSwapperPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+    }
+
+    public void OpenCreditsPanel() {
+        creditsPanel.SetActive(true);
+
+        mainPanel.SetActive(false);
+        nameSwapperPanel.SetActive(false);
+        highscoresPanel.SetActive(false);
     }
 
     public void QuitGame() {
+        if(Application.platform == RuntimePlatform.WebGLPlayer || Application.isEditor) {
+            quitWebText.SetActive(true);
+            return;
+        }
 
+        Application.Quit();
     }
 }
