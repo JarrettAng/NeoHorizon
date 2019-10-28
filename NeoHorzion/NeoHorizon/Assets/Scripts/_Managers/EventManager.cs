@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour {
 
-    public static Action<int> OnMoveTopDown;
-    public static Action OnGameOver;
-    public static Action<List<TilePiece>> OnLineClear;
+	public static Action<int> OnMoveTopDown;
+	public static Action OnGameOver;
+	public static Action<List<TilePiece>> OnLineClear;
 
-    private void OnDisable() {
-        ClearAllEvents();
-    }
+	private void OnDisable() {
+		ClearAllEvents();
+	}
 
-    public static void ClearAllEvents() {
-        OnMoveTopDown = null;
-        OnGameOver = null;
-    }
+	public static void ClearAllEvents() {
+		OnMoveTopDown = null;
+		OnGameOver = null;
+	}
 }
