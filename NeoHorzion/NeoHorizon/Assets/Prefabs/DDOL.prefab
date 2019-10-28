@@ -98,6 +98,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: MenuScroll
+    clip: {fileID: 8300000, guid: 347ebfa9fc7bc27449e6617747c76004, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!1 &2502543824132046101
 GameObject:
   m_ObjectHideFlags: 0
