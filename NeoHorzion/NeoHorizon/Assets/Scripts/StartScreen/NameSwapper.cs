@@ -19,11 +19,17 @@ public class NameSwapper : MonoBehaviour
     [SerializeField] private string initials = "";
     [SerializeField] private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    private SoundManager soundManager;
+
     private int stepper = 0;
     private int letterSelect = 0;
 
     private bool readyToMove = true;
     private bool nameEntered = false;
+
+    private void Awake() {
+        soundManager = SoundManager.Instance;
+    }
 
     private void OnEnable() {
         Reset();
@@ -48,6 +54,7 @@ public class NameSwapper : MonoBehaviour
     private void Update() {
         if(Input.GetButtonDown(cancelButton)) {
             StartScreenSwapper.Instance.OpenMainPanel();
+            soundManager.PlaySound("UIBack");
         }
 
         if(nameEntered) return;
@@ -59,6 +66,8 @@ public class NameSwapper : MonoBehaviour
                 stepper = 0;
             }
 
+            soundManager.PlaySound("MenuScroll");
+
             letters[letterSelect].text = alphabet[stepper].ToString();
             readyToMove = false;
             Invoke("ResetReadyToMove", moveDelay);
@@ -69,6 +78,8 @@ public class NameSwapper : MonoBehaviour
             if(stepper < 0) {
                 stepper = alphabet.Length - 1;
             }
+
+            soundManager.PlaySound("MenuScroll");
 
             letters[letterSelect].text = alphabet[stepper].ToString();
             readyToMove = false;
@@ -93,6 +104,9 @@ public class NameSwapper : MonoBehaviour
                     readyToMove = false;
                     Invoke("ResetReadyToMove", moveDelay);
                 }
+
+                soundManager.PlaySound("UISelect");
+
                 stepper = 0; // stepper is reset for next run
             }
         }

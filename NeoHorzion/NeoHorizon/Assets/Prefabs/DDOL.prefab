@@ -51,7 +51,7 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
   - name: GameOver
-    clip: {fileID: 8300000, guid: de95b2405cc4d0949893cb5f2e6fe5d9, type: 3}
+    clip: {fileID: 8300000, guid: bdd7b3c30549b764d9d0165557a60728, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -69,8 +69,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: UISelect
-    clip: {fileID: 8300000, guid: a1274546d50a09647b5f27af706259ff, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 07c7b995ae12d304193c382610b4ea0c, type: 3}
+    volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -101,6 +101,12 @@ MonoBehaviour:
   - name: MenuScroll
     clip: {fileID: 8300000, guid: 347ebfa9fc7bc27449e6617747c76004, type: 3}
     volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UIBack
+    clip: {fileID: 8300000, guid: fa28746824452d54bb85927a4e8a39d8, type: 3}
+    volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
