@@ -6,7 +6,7 @@ using TMPro;
 public class StartNameController : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI nameText = default;
 
     [Header("Read-Only")]
     [SerializeField] private string currentName;
