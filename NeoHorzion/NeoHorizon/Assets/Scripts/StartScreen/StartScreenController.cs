@@ -18,15 +18,21 @@ public class StartScreenController : MonoBehaviour
     [SerializeField, Tooltip("Axes for left / right movement")] private string horizontalMovement = "Horizontal";
     [SerializeField, Tooltip("Axes for up / down movement")] private string verticalMovement = "Vertical";
     [SerializeField, Tooltip("Axes for selecting")] private string selectButton = "Shoot";
+    [SerializeField] private float moveDelay = 0.2f;
 
     [Header("Read-Only")]
     [SerializeField] private Vector2Int currentIndex;
 
     private ButtonPressEmulator[,] buttonsGrid;
+    private SoundManager soundManager;
 
-    // PSA: This entire script is hardcoded
+    private bool readyToMove = true;
+
+    // PSA: This entire script is hardcoded! Soz
 
     private void Awake() {
+        soundManager = SoundManager.Instance;
+
         buttonsGrid = new ButtonPressEmulator[2, 3];
 
         buttonsGrid[0, 2] = swapNameButton;
@@ -40,28 +46,23 @@ public class StartScreenController : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetButtonDown(horizontalMovement)) {
-            if(Input.GetAxisRaw(horizontalMovement) > 0) {
-                MoveRight();
-            } else {
-                MoveLeft();
-            }
-
-            return;
-        }
-
-        if(Input.GetButtonDown(verticalMovement)) {
-            if(Input.GetAxisRaw(verticalMovement) > 0) {
-                MoveUp();
-            } else {
-                MoveDown();
-            }
-
-            return;
-        }
-
         if(Input.GetButtonDown(selectButton)) {
             buttonsGrid[currentIndex.x, currentIndex.y].Click();
+            return;
+        }
+
+        if(!readyToMove) return;
+
+        if(Input.GetAxisRaw(horizontalMovement) > 0) {
+            MoveRight();
+        } else if (Input.GetAxisRaw(horizontalMovement) < 0) {
+            MoveLeft();
+        }
+
+        if(Input.GetAxisRaw(verticalMovement) > 0) {
+            MoveUp();
+        } else if(Input.GetAxisRaw(verticalMovement) < 0) {
+            MoveDown();
         }
     }
 
@@ -73,6 +74,9 @@ public class StartScreenController : MonoBehaviour
         }
 
         selector.anchoredPosition = buttonsGrid[currentIndex.x, currentIndex.y].Position;
+        readyToMove = false;
+        Invoke("ResetReadyToMove", moveDelay);
+        soundManager.PlaySound("MenuScroll");
     }
 
     private void MoveRight() {
@@ -83,6 +87,9 @@ public class StartScreenController : MonoBehaviour
         }
 
         selector.anchoredPosition = buttonsGrid[currentIndex.x, currentIndex.y].Position;
+        readyToMove = false;
+        Invoke("ResetReadyToMove", moveDelay);
+        soundManager.PlaySound("MenuScroll");
     }
 
     private void MoveUp() {
@@ -93,6 +100,9 @@ public class StartScreenController : MonoBehaviour
         }
 
         selector.anchoredPosition = buttonsGrid[currentIndex.x, currentIndex.y].Position;
+        readyToMove = false;
+        Invoke("ResetReadyToMove", moveDelay);
+        soundManager.PlaySound("MenuScroll");
     }
 
     private void MoveDown() {
@@ -103,5 +113,12 @@ public class StartScreenController : MonoBehaviour
         }
 
         selector.anchoredPosition = buttonsGrid[currentIndex.x, currentIndex.y].Position;
+        readyToMove = false;
+        Invoke("ResetReadyToMove", moveDelay);
+        soundManager.PlaySound("MenuScroll");
+    }
+
+    private void ResetReadyToMove() {
+        readyToMove = true;
     }
 }

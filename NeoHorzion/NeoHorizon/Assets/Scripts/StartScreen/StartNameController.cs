@@ -11,7 +11,7 @@ public class StartNameController : MonoBehaviour
     [Header("Read-Only")]
     [SerializeField] private string currentName;
 
-    private void Start() {
+    private void OnEnable() {
         currentName = SaveSystem.LoadCurrentName();
         UpdateNameDisplay();
     }
