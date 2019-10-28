@@ -10,71 +10,74 @@ public class ScoreManager : MonoBehaviour {
 	[SerializeField] private TextMeshProUGUI scoreText = default;
 	[SerializeField] private TextMeshProUGUI linesText = default;
 
-    [Header("Attributes")]
-    [SerializeField] private string ballORshoot = "shoot";
+	[Header("Attributes")]
+	[SerializeField] private string ballORshoot = "shoot";
 	[SerializeField] private int pointsPerBlock = 50;
 
-    [Header("Read-only")]
-    [SerializeField] private PlayerInfo currentData; // Reference type, updates highscore automatically
-    [SerializeField] private int currentScore = 0;
-    [SerializeField] private int linesCleared = 0;
+	[Header("Read-only")]
+	[SerializeField] private PlayerInfo currentData; // Reference type, updates highscore automatically
+	[SerializeField] private int currentScore = 0;
+	[SerializeField] private int linesCleared = 0;
 
-    private HighscoreManager highscoreManager;
+	private HighscoreManager highscoreManager;
+	private ComboManager comboManager;
 
 	private void Awake() {
 		EventManager.OnLineClear += UpdateScore;
 
-        highscoreManager = HighscoreManager.Instance;
+		highscoreManager = HighscoreManager.Instance;
+		comboManager = ComboManager.Instance;
 	}
 
 	private void Start() {
-        string name = SaveSystem.LoadCurrentName();
-        currentData = highscoreManager.GetPlayerDataFromName(name);
+		string name = SaveSystem.LoadCurrentName();
+		currentData = highscoreManager.GetPlayerDataFromName(name);
 
-        nameText.text = name;
+		nameText.text = name;
 
-        UpdateHighscore();
-        UpdateScore();
-        UpdateLines();
-    }
+		UpdateHighscore();
+		UpdateScore();
+		UpdateLines();
+	}
 
 	private void UpdateScore(List<TilePiece> piecesRemoved) {
-		currentScore += piecesRemoved.Count * pointsPerBlock;
-        linesCleared++;
+		comboManager.IncreaseCombo();
+		currentScore += piecesRemoved.Count * pointsPerBlock * comboManager.CurrentCombo;
+		linesCleared++;
 
-        UpdateHighscore();
+		UpdateHighscore();
 		UpdateScore();
-        UpdateLines();
-    }
+		UpdateLines();
+	}
 
 	private void UpdateHighscore() {
-        if(ballORshoot == "shoot") {
-            if(currentScore > currentData.shootScore) {
-                currentData.shootScore = currentScore;
+		if(ballORshoot == "shoot") {
+			if(currentScore > currentData.shootScore) {
+				currentData.shootScore = currentScore;
 
-                highscoreManager.SavePlayerData();
-            }
+				highscoreManager.SavePlayerData();
+			}
 
-            highscoreText.text = currentData.shootScore.ToString("000000");
+			highscoreText.text = currentData.shootScore.ToString("000000");
 
-        } else if(ballORshoot == "ball") {
-            if(currentScore > currentData.ballScore) {
-                currentData.ballScore = currentScore;
+		} else if(ballORshoot == "ball") {
+			if(currentScore > currentData.ballScore) {
+				currentData.ballScore = currentScore;
 
-                highscoreManager.SavePlayerData();
-            }
+				highscoreManager.SavePlayerData();
+			}
 
-            highscoreText.text = currentData.ballScore.ToString("000000");
-        } else {
-            Debug.LogErrorFormat("Invalid gamemode for ScoreManager. Given: {0}, accepted only ball or shoot", ballORshoot);
-        }
-    }
+			highscoreText.text = currentData.ballScore.ToString("000000");
+		} else {
+			Debug.LogErrorFormat("Invalid gamemode for ScoreManager. Given: {0}, accepted only ball or shoot", ballORshoot);
+		}
+	}
 
 	private void UpdateScore() {
 		scoreText.text = currentScore.ToString("000000");
 	}
 
-    private void UpdateLines() {
-        linesText.text = linesCleared.ToString("000000");
-    }
+	private void UpdateLines() {
+		linesText.text = linesCleared.ToString("000000");
+	}
 }
