@@ -57,7 +57,7 @@ public class SimplePiece : MovingPiece {
 					break;
 			}
 
-			if(shouldStopZooming) break;
+			if(shouldStopZooming) yield break;
 		}
 	}
 
