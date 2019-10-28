@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameOverManager : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameOverPanel = default;
 
     [Header("Attributes")]
     [SerializeField, Tooltip("Axes for selecting")] private string quitButton = "Cancel";

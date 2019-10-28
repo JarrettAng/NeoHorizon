@@ -5,9 +5,9 @@ using UnityEngine;
 public class BallShooter : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private BallShootLine[] twoShootLines;
-    [SerializeField] private Ball ballPrefab;
-    [SerializeField] private Transform paddleBallObject;
+    [SerializeField] private BallShootLine[] twoShootLines = default;
+    [SerializeField] private Ball ballPrefab = default;
+    [SerializeField] private Transform paddleBallObject = default;
 
     [Header("Attributes")]
     [SerializeField] private float swapTime = 0.75f;

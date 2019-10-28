@@ -17,5 +17,7 @@ public class EventManager : MonoBehaviour {
 	public static void ClearAllEvents() {
 		OnMoveTopDown = null;
 		OnGameOver = null;
-	}
+        OnLineClear = null;
+        OnBallDestroyed = null;
+    }
 }

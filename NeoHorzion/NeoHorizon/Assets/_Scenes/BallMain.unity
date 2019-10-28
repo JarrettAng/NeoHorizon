@@ -858,6 +858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSceneName: Start
   shooterSceneName: ShooterMain
+  ballSceneName: BallMain
 --- !u!1 &427665604
 GameObject:
   m_ObjectHideFlags: 0
