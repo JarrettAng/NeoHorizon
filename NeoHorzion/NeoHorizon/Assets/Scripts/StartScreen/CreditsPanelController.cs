@@ -35,7 +35,10 @@ public class CreditsPanelController : MonoBehaviour
         buttonsList[2] = jarrettButton;
         buttonsList[3] = junRongButton;
         buttonsList[4] = backButton;
+    }
 
+    private void Start() {
+        selector.anchoredPosition = buttonsList[currentIndex].Position;
     }
 
     private void OnEnable() {
@@ -77,8 +80,8 @@ public class CreditsPanelController : MonoBehaviour
     private void MoveUp() {
         currentIndex--;
 
-        if(currentIndex > buttonsList.Length - 1) {
-            currentIndex = 0;
+        if(currentIndex < 0) {
+            currentIndex = buttonsList.Length - 1;
         }
 
         selector.anchoredPosition = buttonsList[currentIndex].Position;
@@ -90,8 +93,8 @@ public class CreditsPanelController : MonoBehaviour
     private void MoveDown() {
         currentIndex++;
 
-        if(currentIndex < 0) {
-            currentIndex = buttonsList.Length - 1;
+        if(currentIndex > buttonsList.Length - 1) {
+            currentIndex = 0;
         }
 
         selector.anchoredPosition = buttonsList[currentIndex].Position;
