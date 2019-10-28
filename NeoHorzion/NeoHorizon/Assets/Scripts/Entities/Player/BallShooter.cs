@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallShooter : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private BallShootLine[] threeShootLines;
+    [SerializeField] private BallShootLine[] twoShootLines;
     [SerializeField] private Ball ballPrefab;
     [SerializeField] private Transform paddleBallObject;
 
@@ -16,15 +16,17 @@ public class BallShooter : MonoBehaviour
     [Header("Read-Only")]
     [SerializeField] private bool hasBall;
 
-    private BallShootLine currentShootLine;
+    private BallShootLine currentLine;
 
     private WaitForSeconds waitTime;
 
     private void Awake() {
         waitTime = new WaitForSeconds(swapTime);
+        EventManager.OnBallDestroyed += ReviveBall;
     }
 
     private void Start() {
+        hasBall = true;
         StartCoroutine(ShootLineSwapping());
     }
 
@@ -34,15 +36,26 @@ public class BallShooter : MonoBehaviour
         }
 
         void HandleInput() {
-            if(Input.GetButton(shootButton)) {
+            if(Input.GetButtonDown(shootButton)) {
                 ShootBall();
             }
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.CompareTag("Ball")) {
+            Destroy(other.gameObject);
+            TogglePaddleBall(true);
+        }
+    }
+
+    private void ReviveBall() {
+        TogglePaddleBall(true);
+    }
+
     private void ShootBall() {
         Ball newBall = Instantiate(ballPrefab, paddleBallObject.position, Quaternion.identity);
-        newBall.Launch();
+        newBall.Launch(currentLine.transform.up);
 
         TogglePaddleBall(false);
     }
@@ -50,31 +63,26 @@ public class BallShooter : MonoBehaviour
     private void TogglePaddleBall(bool state) {
         hasBall = state;
         paddleBallObject.gameObject.SetActive(state);
+        ToggleLines(state);
+    }
+
+    private void ToggleLines(bool state) {
+        foreach(BallShootLine line in twoShootLines) {
+            line.gameObject.SetActive(state);
+        }
     }
 
     private IEnumerator ShootLineSwapping() {
         while(true) {
-            threeShootLines[1].ToggleShooterLine(false);
-            threeShootLines[0].ToggleShooterLine(true);
-            currentShootLine = threeShootLines[0];
+            twoShootLines[0].ToggleShooterLine(false);
+            twoShootLines[1].ToggleShooterLine(true);
+            currentLine = twoShootLines[1];
 
             yield return waitTime;
 
-            threeShootLines[0].ToggleShooterLine(false);
-            threeShootLines[1].ToggleShooterLine(true);
-            currentShootLine = threeShootLines[1];
-
-            yield return waitTime;
-
-            threeShootLines[1].ToggleShooterLine(false);
-            threeShootLines[2].ToggleShooterLine(true);
-            currentShootLine = threeShootLines[2];
-
-            yield return waitTime;
-
-            threeShootLines[2].ToggleShooterLine(false);
-            threeShootLines[1].ToggleShooterLine(true);
-            currentShootLine = threeShootLines[1];
+            twoShootLines[0].ToggleShooterLine(true);
+            twoShootLines[1].ToggleShooterLine(false);
+            currentLine = twoShootLines[0];
 
             yield return waitTime;
         }

@@ -12,15 +12,15 @@ public class BallShootLine : MonoBehaviour
     [SerializeField] private Color shooterColor;
 
     [Header("Read-Only")]
-    [SerializeField] private bool shooterLine;
+    public bool ShooterLine;
 
     public void ToggleShooterLine(bool shooter) {
         if(shooter) {
             spriteRenderer.color = shooterColor;
-            shooterLine = true;
+            ShooterLine = true;
         } else {
             spriteRenderer.color = defaultColor;
-            shooterLine = false;
+            ShooterLine = false;
         }
     }
 }
