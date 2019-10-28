@@ -18,5 +18,7 @@ public class ButtonPressEmulator : MonoBehaviour
 
     public void Click() {
         button.onClick.Invoke();
+
+        SoundManager.Instance.PlaySound("UISelect");
     }
 }

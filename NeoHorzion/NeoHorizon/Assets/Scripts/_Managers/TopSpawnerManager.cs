@@ -150,16 +150,14 @@ public class TopSpawnerManager : Singleton<TopSpawnerManager>
 
             Vector2Int spawnPos = new Vector2Int(x, spawnHeight);
 
-            TilePiece newPiece = Instantiate(piecePrefab);
-            newPiece.Type = PieceType.STATIC;
+            if(gameGrid.IsTileEmpty(spawnPos)) {
+                TilePiece newPiece = Instantiate(piecePrefab);
+                newPiece.Type = PieceType.STATIC;
 
-            gameGrid.AddPieceAt(spawnPos, newPiece, out bool addWasSuccessful);
+                gameGrid.AddPieceAt(spawnPos, newPiece, out bool addWasSuccessful);
 
-            if(!addWasSuccessful) {
-                newPiece.Destroy();
+                pieces.Add(newPiece);
             }
-
-            pieces.Add(newPiece);
         }
 
         UpdateFreeHeight();

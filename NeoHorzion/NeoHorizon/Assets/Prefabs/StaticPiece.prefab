@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 0
-  CurrentGridPos: {x: 0, y: 0}
+  CurrentGridPos: {x: 0, y: 18}
 --- !u!114 &5468861452648742370
 MonoBehaviour:
   m_ObjectHideFlags: 0
