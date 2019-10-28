@@ -1328,7 +1328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movingPiecePrefab: {fileID: 8722184554067688876, guid: 075223a907a382c4581f8ebb65821a17,
     type: 3}
-  spawnFrequency: 3
+  spawnFrequency: 2.5
   searchHeight: 0
 --- !u!1 &630670243
 GameObject:
@@ -1588,7 +1588,7 @@ MonoBehaviour:
   comboPanel: {fileID: 1872599128}
   comboBarTransform: {fileID: 1949336851}
   comboText: {fileID: 1057580013}
-  comboDuration: 15
+  comboDuration: 20
   currentCombo: 0
 --- !u!1 &900235665
 GameObject:
@@ -1641,19 +1641,19 @@ MonoBehaviour:
   - AppearAtLevel: 3
     gapsPerRowList: 02000000
   - AppearAtLevel: 4
-    gapsPerRowList: 01000000010000000100000001000000010000000100000002000000
+    gapsPerRowList: 0100000001000000010000000100000001000000010000000100000002000000
   - AppearAtLevel: 10
-    gapsPerRowList: 010000000100000001000000010000000100000002000000
+    gapsPerRowList: 01000000010000000100000001000000010000000100000002000000
   - AppearAtLevel: 20
-    gapsPerRowList: 0100000001000000010000000100000002000000
+    gapsPerRowList: 010000000100000001000000010000000100000002000000
   - AppearAtLevel: 30
-    gapsPerRowList: 01000000010000000100000002000000
+    gapsPerRowList: 0100000001000000010000000100000002000000
   - AppearAtLevel: 40
-    gapsPerRowList: 010000000100000002000000
+    gapsPerRowList: 01000000010000000100000002000000
   - AppearAtLevel: 50
-    gapsPerRowList: 0100000002000000
+    gapsPerRowList: 010000000100000002000000
   - AppearAtLevel: 75
-    gapsPerRowList: 02000000
+    gapsPerRowList: 0100000002000000
   gapSideBuffer: 1
   autoMoveSeconds: 10
   freeHeight: 0
