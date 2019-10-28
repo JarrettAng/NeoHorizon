@@ -11,6 +11,7 @@ public class NameSwapper : MonoBehaviour
     [Header("Attributes")]
     [SerializeField, Tooltip("Axes for up / down movement")] private string verticalMovement = "Vertical";
     [SerializeField, Tooltip("Axes for selecting")] private string selectButton = "Shoot";
+    [SerializeField, Tooltip("Axes for selecting")] private string cancelButton = "Cancel";
     [SerializeField] private float moveDelay = 0.2f;
     [SerializeField] private Color selectedColor = Color.white;
 
@@ -24,11 +25,31 @@ public class NameSwapper : MonoBehaviour
     private bool readyToMove = true;
     private bool nameEntered = false;
 
-    void Start() {
+    private void OnEnable() {
+        Reset();
+
         letters[letterSelect].text = alphabet[stepper].ToString();
+
+        void Reset() {
+            readyToMove = true;
+            nameEntered = false;
+
+            stepper = 0;
+            letterSelect = 0;
+            initials = "";
+
+            foreach(TextMeshProUGUI letter in letters) {
+                letter.color = Color.white;
+                letter.text = alphabet[stepper].ToString();
+            }
+        }
     }
 
-    void Update() {
+    private void Update() {
+        if(Input.GetButtonDown(cancelButton)) {
+            StartScreenSwapper.Instance.OpenMainPanel();
+        }
+
         if(nameEntered) return;
 
         if(Input.GetAxisRaw(verticalMovement) > 0 && readyToMove) {
@@ -68,7 +89,6 @@ public class NameSwapper : MonoBehaviour
 
                 } else {
                     letterSelect++;
-                    letters[letterSelect].color = Color.white;
                     letters[letterSelect - 1].color = selectedColor;
                     readyToMove = false;
                     Invoke("ResetReadyToMove", moveDelay);
