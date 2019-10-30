@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 7983508544037337150}
-  defaultColor: {r: 1, g: 1, b: 1, a: 0.078431375}
-  shooterColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0}
+  shooterColor: {r: 1, g: 1, b: 1, a: 0.23529412}
   ShooterLine: 0
 --- !u!1 &5792311950428013532
 GameObject:
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29309e1c4e173dc4ebc7f424c6eaaa1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 25
+  moveSpeed: 40
   horizontalMovement: Horizontal
 --- !u!114 &7759315735634640362
 MonoBehaviour:
@@ -467,6 +467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3290704474743662964}
-  defaultColor: {r: 1, g: 1, b: 1, a: 0.078431375}
-  shooterColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  defaultColor: {r: 1, g: 1, b: 1, a: 0}
+  shooterColor: {r: 1, g: 1, b: 1, a: 0.23529412}
   ShooterLine: 0

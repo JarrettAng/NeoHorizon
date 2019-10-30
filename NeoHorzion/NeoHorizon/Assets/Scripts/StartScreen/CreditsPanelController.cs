@@ -25,6 +25,9 @@ public class CreditsPanelController : MonoBehaviour
 
     private bool readyToMove = true;
 
+    // Bug fix (0001): Multiple calls of GetButtonDown when it's not suppose to
+    private bool buttonPressedFailSafe;
+
     private void Awake() {
         soundManager = SoundManager.Instance;
 
@@ -48,8 +51,19 @@ public class CreditsPanelController : MonoBehaviour
 
     private void Update() {
         if(Input.GetButtonDown(selectButton)) {
-            buttonsList[currentIndex].Click();
-            return;
+            // Bug fix (0001)
+            if(!buttonPressedFailSafe) {
+                buttonPressedFailSafe = true;
+
+                buttonsList[currentIndex].Click();
+            }
+        }
+
+        // Bug fix (0001)
+        if(!Input.GetButton(selectButton)) {
+            if(buttonPressedFailSafe) {
+                buttonPressedFailSafe = false;
+            }
         }
 
         if(!readyToMove) return;

@@ -14,4 +14,6 @@ public class Ball : MonoBehaviour
 
         rb2d.velocity = moveDirection * speed;
     }
+
+
 }

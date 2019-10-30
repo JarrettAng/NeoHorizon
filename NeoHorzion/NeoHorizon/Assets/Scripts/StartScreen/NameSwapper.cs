@@ -87,7 +87,7 @@ public class NameSwapper : MonoBehaviour {
 			Invoke("ResetReadyToMove", moveDelay);
 		}
 
-		if(Input.GetButtonDown(selectButton)) {
+		if(Input.GetButtonDown(selectButton) && readyToMove) {
 			if(letterSelect <= letters.Length - 1) {
 				initials = initials + alphabet[stepper].ToString(); // add current letter to string
 																	// if the last letter is reached then add initials

@@ -28,6 +28,9 @@ public class StartScreenController : MonoBehaviour
 
     private bool readyToMove = true;
 
+    // Bug fix (0001): Multiple calls of GetButtonDown when it's not suppose to
+    private bool buttonPressedFailSafe;
+    
     // PSA: This entire script is hardcoded! Soz
 
     private void Awake() {
@@ -47,8 +50,19 @@ public class StartScreenController : MonoBehaviour
 
     private void Update() {
         if(Input.GetButtonDown(selectButton)) {
-            buttonsGrid[currentIndex.x, currentIndex.y].Click();
-            return;
+            // Bug fix (0001)
+            if(!buttonPressedFailSafe) {
+                buttonPressedFailSafe = true;
+
+                buttonsGrid[currentIndex.x, currentIndex.y].Click();
+            }
+        }
+
+        // Bug fix (0001)
+        if(!Input.GetButton(selectButton)) {
+            if(buttonPressedFailSafe) {
+                buttonPressedFailSafe = false;
+            }
         }
 
         if(!readyToMove) return;
