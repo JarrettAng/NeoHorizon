@@ -5848,6 +5848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0, z: 0}
   selectButton: Shoot
+  preventationWait: 0.2
 --- !u!1 &854173206
 GameObject:
   m_ObjectHideFlags: 0

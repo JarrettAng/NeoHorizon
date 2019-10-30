@@ -29,8 +29,10 @@ public class PlayerShooter : MonoBehaviour
         currentSpamCooldown -= Time.deltaTime;
 
         // Bug fix (0001)
-        if(!buttonPressedFailSafe) {
-            buttonPressedFailSafe = true;
+        if(!Input.GetButton(shootButton)) {
+            if(buttonPressedFailSafe) {
+                buttonPressedFailSafe = false;
+            }
         }
 
         if(currentSpamCooldown <= 0f) {
@@ -47,8 +49,9 @@ public class PlayerShooter : MonoBehaviour
     }
 
     private bool HandleSpamInput() {
-        if(Input.GetButtonDown(shootButton) && buttonPressedFailSafe) {
-            buttonPressedFailSafe = false;
+        // Bug fix (0001)
+        if(Input.GetButtonDown(shootButton) && !buttonPressedFailSafe) {
+            buttonPressedFailSafe = true;
 
             currentSpamCooldown = spamCooldownTime;
             currentHoldCooldown = cooldownTime;

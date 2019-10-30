@@ -38,8 +38,11 @@ public class NameSwapper : MonoBehaviour {
 		ToggleSelectionIndicators(letterSelect);
 
 		void Reset() {
-			readyToMove = true;
-			nameEntered = false;
+            // Bug fix (0001)
+            readyToMove = false;
+            Invoke("ResetReadyToMove", moveDelay);
+
+            nameEntered = false;
 
 			stepper = 0;
 			letterSelect = 0;

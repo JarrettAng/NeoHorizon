@@ -45,6 +45,9 @@ public class CreditsPanelController : MonoBehaviour
     }
 
     private void OnEnable() {
+        // Bug fix (0001)
+        buttonPressedFailSafe = true;
+
         currentIndex = 0;
         selector.anchoredPosition = buttonsList[currentIndex].Position;
     }

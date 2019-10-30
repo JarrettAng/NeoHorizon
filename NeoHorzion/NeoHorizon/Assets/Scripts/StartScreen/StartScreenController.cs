@@ -48,6 +48,11 @@ public class StartScreenController : MonoBehaviour
         currentIndex = new Vector2Int(0, 2);
     }
 
+    // Bug fix (0001)
+    private void OnEnable() {
+        buttonPressedFailSafe = true;
+    }
+
     private void Update() {
         if(Input.GetButtonDown(selectButton)) {
             // Bug fix (0001)
