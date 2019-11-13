@@ -17,6 +17,11 @@ public class PlayerShooter : MonoBehaviour
     private float currentHoldCooldown = 0f;
     private float currentSpamCooldown = 0f;
 
+    // Bug fix (0001): Multiple calls of GetButtonDown when it's not suppose to
+    #if UNITY_WEBGL
+    private bool buttonPressedFailSafe;
+    #endif
+
     private void Awake() {
         soundManager = SoundManager.Instance;
     }
@@ -24,6 +29,15 @@ public class PlayerShooter : MonoBehaviour
     private void Update()
     {
         currentSpamCooldown -= Time.deltaTime;
+
+        // Bug fix (0001)
+        #if UNITY_WEBGL
+        if(!Input.GetButton(shootButton)) {
+            if(buttonPressedFailSafe) {
+                buttonPressedFailSafe = false;
+            }
+        }
+        #endif
 
         if(currentSpamCooldown <= 0f) {
             if(HandleSpamInput()) {
@@ -40,6 +54,16 @@ public class PlayerShooter : MonoBehaviour
 
     private bool HandleSpamInput() {
         if(Input.GetButtonDown(shootButton)) {
+
+            // Bug fix (0001)
+            #if UNITY_WEBGL
+            if(buttonPressedFailSafe) {
+                return false;
+            }
+
+            buttonPressedFailSafe = true;
+            #endif
+
             currentSpamCooldown = spamCooldownTime;
             currentHoldCooldown = cooldownTime;
 

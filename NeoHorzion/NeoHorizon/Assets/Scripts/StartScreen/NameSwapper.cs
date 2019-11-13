@@ -27,7 +27,12 @@ public class NameSwapper : MonoBehaviour {
 	private bool readyToMove = true;
 	private bool nameEntered = false;
 
-	private void Awake() {
+    // Bug fix (0001): Multiple calls of GetButtonDown when it's not suppose to
+    #if UNITY_WEBGL
+    private bool buttonPressedFailSafe;
+    #endif
+
+    private void Awake() {
 		soundManager = SoundManager.Instance;
 	}
 
@@ -38,8 +43,11 @@ public class NameSwapper : MonoBehaviour {
 		ToggleSelectionIndicators(letterSelect);
 
 		void Reset() {
-			readyToMove = true;
-			nameEntered = false;
+            // Bug fix (0001)
+            readyToMove = false;
+            Invoke("ResetReadyToMove", moveDelay);
+
+            nameEntered = false;
 
 			stepper = 0;
 			letterSelect = 0;
@@ -53,7 +61,16 @@ public class NameSwapper : MonoBehaviour {
 	}
 
 	private void Update() {
-		if(Input.GetButtonDown(cancelButton)) {
+        // Bug fix (0001)
+        #if UNITY_WEBGL
+        if(!Input.GetButton(selectButton)) {
+            if(buttonPressedFailSafe) {
+                buttonPressedFailSafe = false;
+            }
+        }
+        #endif
+
+        if(Input.GetButtonDown(cancelButton)) {
 			StartScreenSwapper.Instance.OpenMainPanel();
 			soundManager.PlaySound("UIBack");
 		}
@@ -88,7 +105,15 @@ public class NameSwapper : MonoBehaviour {
 		}
 
 		if(Input.GetButtonDown(selectButton)) {
-			if(letterSelect <= letters.Length - 1) {
+            #if UNITY_WEBGL
+            if(buttonPressedFailSafe) {
+                return;
+            }
+
+            buttonPressedFailSafe = true;
+            #endif
+
+            if(letterSelect <= letters.Length - 1) {
 				initials = initials + alphabet[stepper].ToString(); // add current letter to string
 																	// if the last letter is reached then add initials
 				if(letterSelect >= letters.Length - 1) {
