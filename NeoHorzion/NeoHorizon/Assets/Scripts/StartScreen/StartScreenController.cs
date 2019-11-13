@@ -29,8 +29,10 @@ public class StartScreenController : MonoBehaviour
     private bool readyToMove = true;
 
     // Bug fix (0001): Multiple calls of GetButtonDown when it's not suppose to
+    #if UNITY_WEBGL
     private bool buttonPressedFailSafe;
-    
+    #endif 
+
     // PSA: This entire script is hardcoded! Soz
 
     private void Awake() {
@@ -49,26 +51,33 @@ public class StartScreenController : MonoBehaviour
     }
 
     // Bug fix (0001)
+    #if UNITY_WEBGL
     private void OnEnable() {
         buttonPressedFailSafe = true;
     }
+    #endif
 
     private void Update() {
         if(Input.GetButtonDown(selectButton)) {
             // Bug fix (0001)
+            #if UNITY_WEBGL
             if(!buttonPressedFailSafe) {
                 buttonPressedFailSafe = true;
-
                 buttonsGrid[currentIndex.x, currentIndex.y].Click();
             }
+            #else
+            buttonsGrid[currentIndex.x, currentIndex.y].Click();
+            #endif
         }
 
         // Bug fix (0001)
+        #if UNITY_WEBGL
         if(!Input.GetButton(selectButton)) {
             if(buttonPressedFailSafe) {
                 buttonPressedFailSafe = false;
             }
         }
+        #endif
 
         if(!readyToMove) return;
 

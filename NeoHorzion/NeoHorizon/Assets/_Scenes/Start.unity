@@ -5848,7 +5848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0, z: 0}
   selectButton: Shoot
-  preventationWait: 0.2
 --- !u!1 &854173206
 GameObject:
   m_ObjectHideFlags: 0
@@ -9448,7 +9447,7 @@ MonoBehaviour:
   verticalMovement: Vertical
   selectButton: Shoot
   cancelButton: Cancel
-  moveDelay: 0.25
+  moveDelay: 0.15
   selectedColor: {r: 0.92941177, g: 0.23921569, b: 0.4, a: 1}
   initials: 
   alphabet: ABCDEFGHIJKLMNOPQRSTUVWXYZ

@@ -26,7 +26,9 @@ public class CreditsPanelController : MonoBehaviour
     private bool readyToMove = true;
 
     // Bug fix (0001): Multiple calls of GetButtonDown when it's not suppose to
+    #if UNITY_WEBGL
     private bool buttonPressedFailSafe;
+    #endif
 
     private void Awake() {
         soundManager = SoundManager.Instance;
@@ -46,7 +48,9 @@ public class CreditsPanelController : MonoBehaviour
 
     private void OnEnable() {
         // Bug fix (0001)
+        #if UNITY_WEBGL
         buttonPressedFailSafe = true;
+        #endif
 
         currentIndex = 0;
         selector.anchoredPosition = buttonsList[currentIndex].Position;
@@ -55,19 +59,25 @@ public class CreditsPanelController : MonoBehaviour
     private void Update() {
         if(Input.GetButtonDown(selectButton)) {
             // Bug fix (0001)
+            #if UNITY_WEBGL
             if(!buttonPressedFailSafe) {
                 buttonPressedFailSafe = true;
 
                 buttonsList[currentIndex].Click();
             }
+            #else
+            buttonsList[currentIndex].Click();
+            #endif
         }
 
         // Bug fix (0001)
+        #if UNITY_WEBGL
         if(!Input.GetButton(selectButton)) {
             if(buttonPressedFailSafe) {
                 buttonPressedFailSafe = false;
             }
         }
+        #endif
 
         if(!readyToMove) return;
 
